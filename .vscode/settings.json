@@ -1,0 +1,23 @@
+{
+    "search.exclude": {
+        "**/web": true
+    },
+    "files.watcherExclude": {
+        "**/web/*/**": true
+    },
+    "editor.defaultFormatter": "lonefy.vscode-JS-CSS-HTML-formatter",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "compile-hero.disable-compile-files-on-did-save-code": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
+}
