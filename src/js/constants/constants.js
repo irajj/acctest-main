@@ -8,7 +8,7 @@ define([], function () {
 
         //API_URL: 'https://accmortgageapi.azurewebsites.net/api',
         //API_URL: 'https://accmortgagedev.azurewebsites.net/api',
-        API_URL: 'http://accmortgage1.azurewebsites.net/api',
+        API_URL: 'https://accmortgage1.azurewebsites.net/api',
         //API_URL: 'https://accmortgage1.azurewebsites.net/api',
         //API_URL: 'http://localhost:7073/api',
         //API_URL: 'http://c5daa0934318.ngrok.io',
