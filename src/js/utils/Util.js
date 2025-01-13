@@ -8,8 +8,8 @@ define(['constants/constants', 'ojs/ojcorerouter', 'ojs/ojurlparamadapter'], fun
             'token': localStorage.getItem('token'),
             'Content-Type': 'application/json;charset=utf-8',
             // 'x-functions-key': 'ytlDsjE3vaMkli14OuNeuQ1HXSxuV9ONcLfiCo5IFtqm/T4Z00au2Q=='
-            'x-functions-key': 'rOgSMT1aUdSbpC7MSD4Ys26tJ4USPvugL31WexkNVcfvVFWizoZD2Q==' //Dev
-            //'x-functions-key': 'AygmHPrIGarBWHlQaZnoCXVJH/pXEqzHJdMSd3MgGaaT4TTZNNtGhQ==' //Prod
+            //'x-functions-key': 'rOgSMT1aUdSbpC7MSD4Ys26tJ4USPvugL31WexkNVcfvVFWizoZD2Q==' //Dev
+            'x-functions-key': 'AygmHPrIGarBWHlQaZnoCXVJH/pXEqzHJdMSd3MgGaaT4TTZNNtGhQ==' //Prod
         };
 
         return new Promise(function (resolve, reject) {
