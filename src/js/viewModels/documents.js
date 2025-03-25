@@ -14,40 +14,65 @@ define(['downloadjs', 'knockout', 'appController', 'services/common', 'utils/Uti
 
       self.selectedDocument;
 
-      self.onDocumentSelect = async function (event) {
-        var file;
-        if (event.detail.files && event.detail.files.length) {
+       self.onDocumentSelect = async function (event) {
+                debugger
+                var file;
+                const allowedMimeTypes = [
+                    'application/pdf',
+                    'application/msword',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    'application/vnd.ms-excel',
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'application/vnd.ms-powerpoint',
+                    'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                ];
+                const allowedExtensions = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx'];
 
-          app.loading(true);
+                if (event.detail.files && event.detail.files.length) {
+                    app.loading(true);
 
-          file = event.detail.files[0];
-          var base64 = await new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-          });
+                    file = event.detail.files[0];
 
-          //;
-          let payload = {
-            companydocumentid: event.target.id,
-            documentname: file.name,
-            mimetype: file.type,
-            documentbody: base64.split('base64,')[1]
-          }
+                    if (!allowedMimeTypes.includes(file.type)) {
+                        app.error("Error", "Invalid file type. Only PDF, Word, Excel, and PowerPoint files are allowed.");
+                        app.loading(false);
+                        return;
+                    }
 
-          service.uploadDocument(payload).then(_ => {
-            self.load()
-            //temp// app.confirm("Success", "Document Uploaded");
-            app.loading(false);
-          }).catch(_ => {
-            app.error("Error", _);
-            app.loading(false);
-          });
+                    const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+                    if (!allowedExtensions.includes(fileExtension)) {
+                        app.error("Error", "Invalid file extension. Only .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx are allowed.");
+                        app.loading(false);
+                        return; // Stop further processing if the file extension is not allowed
+                    }
 
-        }
-      }
+                    var base64 = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = () => resolve(reader.result);
+                        reader.onerror = error => reject(error);
+                    });
 
+                    //;
+                    let payload = {
+                        companydocumentid: event.target.id,
+                        documentname: file.name,
+                        mimetype: file.type,
+                        documentbody: base64.split('base64,')[1]
+                    }
+
+                    service.uploadDocument(payload).then(_ => {
+                        debugger
+                        self.load()
+                        //temp// app.confirm("Success", "Document Uploaded");
+                        app.loading(false);
+                    }).catch(_ => {
+                        app.error("Error", _);
+                        app.loading(false);
+                    });
+
+                }
+            }
 
       self.download = async function (context, event) {
 
